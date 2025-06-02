@@ -3,16 +3,21 @@ using UnityEngine;
 public class MovePlayer : MonoBehaviour
 {
     public Rigidbody2D rb;
-    public float Speed = 5f;
-    Vector2 Movement;
+    public float speed = 5f;
+    Vector2 movement;
+    public Animator animator;
     void Update()
     {
-        Movement.x = Input.GetAxisRaw("Horizontal");
-        Movement.y = Input.GetAxisRaw("Vertical");
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
+        animator.SetFloat("Speed", movement.magnitude);
     }
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + Movement * Speed * Time.deltaTime);
+        rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
     }
 }
